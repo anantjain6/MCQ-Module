@@ -105,4 +105,44 @@ class InfoConnectApiController extends Controller
             return back()->with('msg', 'The username and/or password you specified are not correct.');
         }
     }
+
+    public function auto(Request $request, $userid)
+    {
+        Auth::loginUsingId($userid);
+        if (User::find($userid)->user_type=="student") {
+            session(['UserType' => 'student']);
+            if ($newUser == 1) {
+                return redirect('student/profile/new')
+                    ->with([
+                        'msg' => 'You are first time user hence please update your details.',
+                        'class' => 'alert-primary'
+                    ]);
+            } else {
+                if ($eventid == null) {
+                    return redirect('student');
+                } else {
+                    return redirect('student/event/'.$eventid);
+                }
+            }
+        } else {
+            $event = Event::select('id')->where('creator', $user->id)->get()->toArray();
+            session(['TeacherEvent' => array_column($event, 'id')]);
+            session(['UserType' => 'teacher']);
+            if ($eventid == null) {
+                return redirect('teacher');
+            } else {
+                if (in_array($eventid, $event)) {
+                    return redirect('teacher/event/view/'.$eventid);
+                } else {
+                    return redirect('teacher')
+                        ->with([
+                            'msg' => 'The event you are trying to access does not belongs to you.',
+                            'class' => 'alert-danger'
+                        ]);
+                }
+            }
+        }
+    }
+
+
 }
