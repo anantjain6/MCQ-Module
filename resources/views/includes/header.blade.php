@@ -16,11 +16,6 @@
                 <a class="nav-link" href="{{ custom_url('teacher/allques') }}">Questions</a>
             </li>
         @endif
-        @if(session('UserType') == 'teacher')
-            <li class="nav-item">
-                <a class="nav-link" href="{{ custom_url('teacher/allques') }}">Questions</a>
-            </li>
-        @endif
   	</ul>
     </div>
     @if (Auth::check())
