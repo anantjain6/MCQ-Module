@@ -112,19 +112,19 @@ class InfoConnectApiController extends Controller
         $user = User::find($userid);
         if ($user->user_type=="student") {
             session(['UserType' => 'student']);
-            if ($newUser == 1) {
-                return redirect('student/profile/new')
-                    ->with([
-                        'msg' => 'You are first time user hence please update your details.',
-                        'class' => 'alert-primary'
-                    ]);
-            } else {
+            // if ($newUser == 1) {
+            //     return redirect('student/profile/new')
+            //         ->with([
+            //             'msg' => 'You are first time user hence please update your details.',
+            //             'class' => 'alert-primary'
+            //         ]);
+            // } else {
                 if ($eventid == null) {
                     return redirect('student');
                 } else {
                     return redirect('student/event/'.$eventid);
                 }
-            }
+            // }
         } else {
             $event = Event::select('id')->where('creator', $user->id)->get()->toArray();
             session(['TeacherEvent' => array_column($event, 'id')]);

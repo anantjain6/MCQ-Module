@@ -17,7 +17,7 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::post('login/{eventid?}', 'InfoConnectApiController@login')->middleware(['RedirectIfAuthenticated'])->name('LoginUrl');
 
-    Route::get('/auto/{userid}', 'InfoConnectApiController@auto')->middleware(['RedirectIfAuthenticated']);
+    Route::get('/auto/{userid}', 'InfoConnectApiController@auto');
 
     Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 
