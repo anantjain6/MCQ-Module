@@ -106,7 +106,7 @@ class InfoConnectApiController extends Controller
         }
     }
 
-    public function auto(Request $request, $userid)
+    public function auto(Request $request, $userid, $eventid = null)
     {
         Auth::loginUsingId($userid);
         $user = User::find($userid);
