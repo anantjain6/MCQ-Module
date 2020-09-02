@@ -109,7 +109,8 @@ class InfoConnectApiController extends Controller
     public function auto(Request $request, $userid)
     {
         Auth::loginUsingId($userid);
-        if (User::find($userid)->user_type=="student") {
+        $user = User::find($userid);
+        if ($user->user_type=="student") {
             session(['UserType' => 'student']);
             if ($newUser == 1) {
                 return redirect('student/profile/new')
